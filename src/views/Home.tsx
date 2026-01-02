@@ -11,7 +11,17 @@ import { homeStyles } from "./home.styles.ts";
 import MicIcon from "@mui/icons-material/Mic";
 import PriceCheckIcon from "@mui/icons-material/PriceCheck";
 import GastosChart from "../components/spendChart.tsx";
+import TodoTable from "../components/todoTable.tsx";
 function HomeView() {
+  const handleComplete = () => {
+    console.log("Completar tarea");
+  };
+  const handlePostpone = () => {
+    console.log("Posponer tarea");
+  };
+  const handleDelete = () => {
+    console.log("Borrar tarea");
+  };
   return (
     <Box sx={homeStyles.container}>
       <Grid container spacing={2}>
@@ -124,6 +134,9 @@ function HomeView() {
               </Box>
             </CardContent>
           </Card>
+        </Grid>
+        <Grid size={{ xs: 12, md: 6 }} component="div">
+          <TodoTable tasks={[{ title: "Tarea 1", description: "Descripción 1" }, { title: "Tarea 2", description: "Descripción 2" }]} handleComplete={handleComplete} handlePostpone={handlePostpone} handleDelete={handleDelete} />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }} component="div">
           <GastosChart total={1000000} gastado={500000} />
