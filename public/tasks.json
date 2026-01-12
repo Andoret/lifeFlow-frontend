@@ -1,0 +1,12 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Tarea de ejemplo",
+      "description": "Esta es una tarea de ejemplo para mostrar la estructura del JSON",
+      "date": "2024-12-20T00:00:00.000Z",
+      "completed": false,
+      "priority": 2
+    }
+  ]
+}

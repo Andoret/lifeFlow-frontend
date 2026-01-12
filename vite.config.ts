@@ -10,4 +10,8 @@ export default defineConfig({
       },
     }),
   ],
+  optimizeDeps: {
+    // Excluir módulos de Tauri del pre-bundling (no están disponibles en desarrollo web)
+    exclude: ['@tauri-apps/api/fs', '@tauri-apps/api/path'],
+  },
 })
