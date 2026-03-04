@@ -8,10 +8,10 @@ import {
 } from "@mui/material";
 import { theme } from "../theme";
 import { homeStyles } from "./home.styles.ts";
-import MicIcon from "@mui/icons-material/Mic";
 import PriceCheckIcon from "@mui/icons-material/PriceCheck";
 import GastosChart from "../components/spendChart.tsx";
 import TodoTable from "../components/todoTable.tsx";
+import VoiceRecorder from "../components/VoiceRecorder.tsx";
 function HomeView() {
   const handleComplete = () => {
     console.log("Completar tarea");
@@ -21,6 +21,13 @@ function HomeView() {
   };
   const handleDelete = () => {
     console.log("Borrar tarea");
+  };
+  const handleTranscription = (text: string, error?: string) => {
+    if (error) {
+      console.error("Error voz a texto:", error);
+      return;
+    }
+    if (text) console.log("Transcripción:", text);
   };
   return (
     <Box sx={homeStyles.container}>
@@ -127,10 +134,7 @@ function HomeView() {
                 >
                   <PriceCheckIcon />
                 </Button>
-                <Button variant="contained" color="primary">
-                  {" "}
-                  <MicIcon />
-                </Button>
+                <VoiceRecorder onTranscription={handleTranscription} />
               </Box>
             </CardContent>
           </Card>
