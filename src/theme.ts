@@ -1,6 +1,9 @@
 import { createTheme } from '@mui/material/styles'
 
 export const theme = createTheme({
+  typography: {
+    fontFamily: 'Manrope',
+  },
   palette: {
     primary: {
       main: '#112250',
@@ -18,7 +21,7 @@ export const theme = createTheme({
     text: {
       primary: '#E0C58F',
       secondary: '#D9CBC2',
-      disabled: '#999999',
+      disabled: '#575656',
     },
   }
 })

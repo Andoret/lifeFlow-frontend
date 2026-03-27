@@ -6,12 +6,12 @@ import {
   CardContent,
   Button,
 } from "@mui/material";
-import { theme } from "../theme";
+import { theme } from "../../theme.ts";
 import { homeStyles } from "./home.styles.ts";
 import PriceCheckIcon from "@mui/icons-material/PriceCheck";
-import GastosChart from "../components/spendChart.tsx";
-import TodoTable from "../components/todoTable.tsx";
-import VoiceRecorder from "../components/VoiceRecorder.tsx";
+import GastosChart from "../../components/spendChart.tsx";
+import TodoTable from "../../components/todoTable.tsx";
+import VoiceRecorder from "../../components/VoiceRecorder.tsx";
 function HomeView() {
   const handleComplete = () => {
     console.log("Completar tarea");
