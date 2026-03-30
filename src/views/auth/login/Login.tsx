@@ -1,22 +1,31 @@
-import { useState,useEffect} from 'react'
+import { useState} from 'react'
 import {
     Box,
     Typography,
-    TextField,
     Button,
     Grid,
-    IconButton,
-    InputAdornment,
     SvgIcon,
+    CircularProgress,
   } from "@mui/material";
-  import { theme } from "../../../theme";
-  import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { authStyles } from "../auth.styles";
+import useLogin from "./useLogin";
+import {EmailField} from "../components/Fields";
+import {PasswordField} from "../components/Fields";
+
+
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
+  const {
+    isLoading,
+    formData,
+    formErrors,
+    submitAttempted,
+    formValid,
+    handleLogin,
+    setFormData,
+  } = useLogin();
 
 
   const GoogleLogo = (props: any) => (
@@ -31,7 +40,7 @@ export default function Login() {
 
   return (
     <>
-    <Grid component="div" size={{ xs: 12, md: 8 }}>
+  <Grid component="div" size={{ xs: 12, md: 8 }}>
     <Typography
       variant="subtitle1"
       sx={{
@@ -43,37 +52,33 @@ export default function Login() {
     </Typography>
   </Grid>
   <Grid component="div" size={{ xs: 12, md: 8 }} sx={authStyles.fieldGrid}>
-    <TextField
+    <EmailField
       label="Correo electrónico"
-      variant="outlined"
-      fullWidth
-      sx={authStyles.input}
+      value={formData.email}
+      error={submitAttempted && !!formErrors.email}
+      helperText={submitAttempted ? formErrors.email : ""}
+      onChange={(e: any) => setFormData({ ...formData, email: e.target.value })}
     />
   </Grid>
   <Grid component="div" size={{ xs: 12, md: 8 }} sx={authStyles.fieldGrid}>
-    <TextField
+    <PasswordField
       label="Contraseña"
-      variant="outlined"
-      fullWidth
-      sx={authStyles.input}
-      type={showPassword ? "text" : "password"}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
+      value={formData.password}
+      error={submitAttempted && !!formErrors.password}
+      helperText={submitAttempted ? formErrors.password : ""}
+      onChange={(e: any) => setFormData({ ...formData, password: e.target.value })}
+      showPassword={showPassword}
+      change={setShowPassword}
     />
   </Grid>
   <Grid component="div" size={{ xs: 12, md: 8 }} sx={authStyles.fieldGrid}>
     <Button
       variant="contained"
       fullWidth
-      endIcon={<ArrowForwardIcon />}
+      endIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : <ArrowForwardIcon />}
       sx={authStyles.button}
+      onClick={handleLogin}
+      disabled={isLoading || !formValid}
     >
       Ingresar
     </Button>
@@ -105,6 +110,6 @@ export default function Login() {
   </Grid>
 
  
-  </>
+    </>
   );
 }
