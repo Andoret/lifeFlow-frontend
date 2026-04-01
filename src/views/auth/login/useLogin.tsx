@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { login } from "./login.service";
-
+import { useNavigate } from "react-router-dom";
 export default function useLogin() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
@@ -75,7 +76,7 @@ export default function useLogin() {
       const response = await login(formData);
       if (response.success) {
         setSuccess(true);
-        console.log("redireccion", response);
+        navigate("/home");
       } else {
         setError(response.message);
       }
