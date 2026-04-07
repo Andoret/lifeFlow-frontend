@@ -1,14 +1,9 @@
 import {
   Box,
   Typography,
-  TextField,
-  Button,
   Grid,
-  IconButton,
-  InputAdornment,
-  SvgIcon,
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { theme } from "../../theme";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { authStyles } from "./auth.styles";
@@ -18,18 +13,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import Login from "./login/Login.tsx";
 import Register from "./register/Register.tsx";
 export default function Auth() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
-
-
-
 
 
   return (

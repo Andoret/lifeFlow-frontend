@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { login } from "./login.service";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../../context/userContext";
 export default function useLogin() {
   const navigate = useNavigate();
+  const { setUser: handleSetUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
@@ -74,8 +76,11 @@ export default function useLogin() {
     }
     try {
       const response = await login(formData);
-      if (response.success) {
+      if (response.status) {
         setSuccess(true);
+        handleSetUser(JSON.stringify(response.user));
+        localStorage.setItem('access_token', response.access_token);
+        localStorage.setItem('refresh_token', response.refresh_token);
         navigate("/home");
       } else {
         setError(response.message);
