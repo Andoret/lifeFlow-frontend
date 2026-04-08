@@ -1,4 +1,4 @@
-import { theme } from "../theme";
+import { theme } from "../../theme";
 export const homeStyles = {
     container: {
         height: '100%',

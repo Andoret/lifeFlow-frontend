@@ -6,13 +6,20 @@ import {
   CardContent,
   Button,
 } from "@mui/material";
-import { theme } from "../theme";
+import { theme } from "../../theme.ts";
 import { homeStyles } from "./home.styles.ts";
 import PriceCheckIcon from "@mui/icons-material/PriceCheck";
-import GastosChart from "../components/spendChart.tsx";
-import TodoTable from "../components/todoTable.tsx";
-import VoiceRecorder from "../components/VoiceRecorder.tsx";
+import GastosChart from "../../components/spendChart.tsx";
+import TodoTable from "../../components/todoTable.tsx";
+import VoiceRecorder from "../../components/VoiceRecorder.tsx";
+import { UserContext } from "../../context/userContext.tsx";
+import { useContext, useEffect } from "react";
+import NavigationBar from "../../components/NavigationBar.tsx";
 function HomeView() {
+  const { user } = useContext(UserContext);
+
+
+
   const handleComplete = () => {
     console.log("Completar tarea");
   };
@@ -37,7 +44,7 @@ function HomeView() {
             variant="h5"
             sx={{ textAlign: "start", color: theme.palette.primary.light }}
           >
-            Hola{" "}
+            Hola
           </Typography>
           <Typography
             variant="h4"
@@ -47,7 +54,7 @@ function HomeView() {
               color: theme.palette.primary.light,
             }}
           >
-            Daniel{" "}
+            {user ? JSON.parse(user).name : ''}
           </Typography>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }} component="div">
@@ -75,7 +82,7 @@ function HomeView() {
                     fontSize: "1.3rem",
                   }}
                 >
-                  Bienvenido a tu a Mewa wow
+                  Bienvenido 🍃
                 </Typography>
                 <Typography
                   sx={{
@@ -145,7 +152,12 @@ function HomeView() {
         <Grid size={{ xs: 12, md: 6 }} component="div">
           <GastosChart total={1000000} gastado={500000} />
         </Grid>
+
+        <Grid size={{ xs: 12, md: 12 }} sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} component="div">
+          <NavigationBar />
+        </Grid>
       </Grid>
+   
     </Box>
   );
 }

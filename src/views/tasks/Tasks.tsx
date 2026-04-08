@@ -7,15 +7,15 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useState, useEffect } from 'react';
-import { theme } from '../theme';
+import { theme } from '../../theme';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import ScatterPlotIcon from "@mui/icons-material/ScatterPlot";
 import MoreTimeIcon from "@mui/icons-material/MoreTime";
 import CheckIcon from "@mui/icons-material/Check";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import type { Task } from '../types/task';
-import { loadTasks, saveTasks } from '../utils/taskStorage';
+import type { Task } from '../../types/task';
+import { loadTasks, saveTasks } from '../../utils/taskStorage';
 
 export default function Tasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
