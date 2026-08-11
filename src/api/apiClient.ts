@@ -4,6 +4,12 @@ export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
 
+function redirectToLogin() {
+  if (window.location.pathname !== '/') {
+    window.location.href = '/';
+  }
+}
+
 
 // REQUEST INTERCEPTOR (ADD TOKEN)
 apiClient.interceptors.request.use((config) => {
@@ -31,6 +37,7 @@ apiClient.interceptors.response.use(
       const refreshToken = localStorage.getItem('refresh_token');
 
       if (!refreshToken) {
+        redirectToLogin();
         throw new Error('Sesión expirada');
       }
 
@@ -54,6 +61,8 @@ apiClient.interceptors.response.use(
       } catch (err) {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        localStorage.removeItem('user');
+        redirectToLogin();
         throw new Error('Sesión expirada');
       }
     }

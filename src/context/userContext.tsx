@@ -1,10 +1,11 @@
-import { createContext, useState,useEffect } from "react";
+import { createContext, useState, useEffect, useMemo, useCallback } from "react";
 
 export const UserContext = createContext({
     user: null as string | null,
-    setUser: (user: string | null) => {},
+    setUser: (_user: string | null) => {},
+    logout: () => {},
 });
-    
+
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<string | null>(null);
     useEffect(() => {
@@ -13,10 +14,19 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             setUser(user);
         }
     }, []);
-    const handleSetUser = (user: string | null) => {
+    const handleSetUser = useCallback((user: string | null) => {
         setUser(user);
-        console.log(user, 'user context');
         localStorage.setItem('user', user || '');
-    }
-    return <UserContext.Provider value={{ user, setUser: handleSetUser }}>{children}</UserContext.Provider>;
+    }, []);
+    const logout = useCallback(() => {
+        setUser(null);
+        localStorage.removeItem('user');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+    }, []);
+    const value = useMemo(
+        () => ({ user, setUser: handleSetUser, logout }),
+        [user, handleSetUser, logout],
+    );
+    return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
